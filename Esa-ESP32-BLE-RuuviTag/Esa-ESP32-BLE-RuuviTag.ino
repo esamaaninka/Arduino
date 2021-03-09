@@ -1,5 +1,10 @@
 //https://www.hackster.io/amir-pournasserian/ble-weather-station-with-esp32-and-ruuvi-e8a68d
 
+/* tiedosto liian iso, jotta saa latautumaan pitää valita partition 
+ "Partition Scheme -> Huge APP (3MB No OTA/1MB SPIFFS). Tätä ei löydy Tools alta, pitää valita Board
+ ESP32DevModule:ksi
+ */
+
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include <BLEScan.h>
@@ -101,11 +106,13 @@ void uBeacRuuvi(){
 
 //Class that scans for BLE devices
 class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
+    //Serial.println("MyAdvertisedDeviceCallbacks");
     void onResult(BLEAdvertisedDevice advertisedDevice) {
       //Scans for specific BLE MAC addresses 
       if(MAC_add.indexOf(advertisedDevice.getAddress().toString().c_str()) >= 0){ //If the scanned MAC address is in the identified MAC address String
         String raw_data = String(BLEUtils::buildHexData(nullptr, (uint8_t*)advertisedDevice.getManufacturerData().data(), advertisedDevice.getManufacturerData().length()));
         raw_data.toUpperCase();
+        Serial.println("MyAdvertisedDeviceCallbacks");
         Serial.println(raw_data);
         decodeRuuvi(raw_data, advertisedDevice.getRSSI());
         uBeacRuuvi();
@@ -132,7 +139,7 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
 };
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(19200);
   
   //Connect to Local WiFi
   delay(4000);   //Delay needed before calling the WiFi.begin
@@ -144,7 +151,7 @@ void setup() {
     Serial.println("Connecting to WiFi..");
   }
  
-  Serial.println("Connected to the WiFi network");
+  Serial.printf("Connected to the WiFi network %s\n",ssid);
 
   //BLE scanning
   Serial.println("Scanning...");
@@ -158,6 +165,7 @@ void setup() {
 }
 
 void loop() {
+  Serial.println("Starting loop:");
   BLEScanResults foundDevices = pBLEScan->start(scanTime, false);
   Serial.println("found devices");
 
@@ -171,8 +179,8 @@ void loop() {
     Serial.print(device.getName().c_str());
     }
 
-  //Serial.print(BLEScanResults);
-  //Serial.println(BLEScanResults->getCount());
+  //Serial.println(foundDevices.dump());
+  //  Serial.println(BLEScanResults->getCount());
   
   pBLEScan->clearResults();   // delete results fromBLEScan buffer to release memory
   delay(3000);
