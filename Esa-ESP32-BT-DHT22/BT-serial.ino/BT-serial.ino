@@ -35,7 +35,7 @@ void setup() {
   pinMode(ledPin, OUTPUT);
   //dht.begin();
   
-  Serial.println("Moron! The device started, now you can pair it with bluetooth!");
+  Serial.println("Mortonki! The device started, now you can pair it with bluetooth!");
 
   
 }

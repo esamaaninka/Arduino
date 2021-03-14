@@ -3,5 +3,5 @@
     "configuration": "FlashFreq=80,UploadSpeed=115200,DebugLevel=none",
     "port": "/dev/ttyUSB0",
     "programmer": "AVR ISP",
-    "sketch": "BT-serial.ino/BT-serial.ino.ino"
+    "sketch": "BT-serial.ino/BT-serial.ino"
 }
