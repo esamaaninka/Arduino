@@ -5,12 +5,11 @@ Arduino IDE ok.
 
 VSC with Arduino extensions:
 (c++, programmer: AVR ISP, board: DOIT ESP32 DEVKIT V1,/dev/ttyUSB0 )
-Jotain pielessä, tarviiko olla Arduino IDEstä vanhempi versio kuin 1.8.7 ?
-warning:
-"2021-03-09T17:43:00.311Z WARN p.a.h.BoardCloudResolver:64 [cc.arduino.packages.discoverers.serial.SerialDiscovery] Fail to get the Vid Pid information from the builder response code=404"
+
+[Warning] Output path is not specified. Unable to reuse previously compiled files. Verify could be slow.
+-> vaikka laitoin .vscode/arduino.json output parametriksi "../build" ei toimi
 
 
-Kun terminal = Arduino näkee edistymisen. 
 
 -------------------------------------------------
 VSC Platformio
