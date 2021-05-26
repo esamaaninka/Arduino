@@ -1,3 +1,7 @@
+
+The app reads DHT22 temp&hum, HX711 load cells, sets led on or off by command  via BT, prints temp/hum to BT and serial.
+
+
 Arduino IDE ok.
  funktiot, muuttujat voi vapaasti jakaa eri tiedostoihin, ei tarvi viittauksia - käännösvaiheessa A-IDEniputtaa kaikki yhteen.
 

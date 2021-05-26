@@ -5,6 +5,7 @@
 //and also demonstrate that SerialBT have the same functionalities of a normal Serial
 
 #include "BluetoothSerial.h"
+#include <Streaming.h>
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
@@ -35,8 +36,8 @@ void setup() {
   pinMode(ledPin, OUTPUT);
   //dht.begin();
   
-  Serial.println("Mortonki! The device started, now you can pair it with bluetooth!");
-
+  //Serial.println("Mortonki! The device started, now you can pair it with bluetooth!");
+  Serial << "Mortonki! The device started, now you can pair it with bluetooth!\n";
   
 }
 
@@ -50,8 +51,9 @@ void loop() {
     String tmp = readDHT22_measurements();
     if(!tmp.equals("")) {
       SerialBT.println(tmp);
+      Serial << "DHT22: " << tmp << endl;
     }
-    else Serial.println("failed to read DHT");
+    else Serial << "failed to read DHT\n";
     
     readScale();
    
