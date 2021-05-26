@@ -9,15 +9,17 @@ HX711 scale;
 void setupScale() {
   scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
 }
-void readScale() {
+long readScale() {
  //scale.power_up();
   
   if (scale.is_ready()) {
     long reading = scale.read();
-    Serial.print("HX711 reading: ");
-    Serial.println(reading);
+    //Serial.print("HX711 reading: ");
+    //Serial.println(reading);
+    return reading;
   } else {
-    Serial.println("HX711 not found.");
+    //Serial.println("HX711 not found.");
+    return 0;
   }
   //scale.power_down();  // put ADC in sleep mode - power saving EI TOIMI EI HERÄÄ 
 }

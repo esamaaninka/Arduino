@@ -32,6 +32,7 @@ void setup() {
   
   //scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
   setupScale();
+   Serial.println(F("HX711 scale set up."));
   
   pinMode(ledPin, OUTPUT);
   //dht.begin();
@@ -48,17 +49,19 @@ void loop() {
   if (currentMillis - previousMillis >= interval){
     previousMillis = currentMillis;
   
-    String tmp = readDHT22_measurements();
-    if(!tmp.equals("")) {
-      SerialBT.println(tmp);
-      Serial << "DHT22: " << tmp << endl;
+    String temp_hum = readDHT22_measurements();
+    if(!temp_hum.equals("")) {
+      SerialBT.println(temp_hum);
+      Serial << "DHT22: " << temp_hum << endl;
     }
     else Serial << "failed to read DHT\n";
     
-    readScale();
+    long scale = readScale();
+    SerialBT.println(scale);
+    Serial << "HX711 Scale read: " << scale << endl;
    
   }
-  
+   // check if characters available in serialBT 
    if (SerialBT.available()){
     char incomingChar = SerialBT.read();
     if (incomingChar != '\n'){
@@ -67,7 +70,9 @@ void loop() {
     else{
       message = "";
     }
-    Serial.write(incomingChar);  
+    // write the incoming message to console
+    //Serial.write(incomingChar);  
+    Serial << "Got via BT: " << message << endl;
   }
   
   if (message =="led_on"){
@@ -75,6 +80,9 @@ void loop() {
   }
   else if (message =="led_off"){
     digitalWrite(ledPin, LOW);
+  }
+  else if (message=="calibrate"){
+    Serial << "calibrating the scale" << endl;
   }
 
   
